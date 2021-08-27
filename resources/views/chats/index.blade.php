@@ -11,5 +11,10 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-5">
+            <div class="col">
+                {{ $users->links() }}
+            </div>
+        </div>
     </div>
 @endsection

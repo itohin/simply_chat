@@ -43,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeNoVisitor(Builder $builder) :Builder
+    public function scopeNoOwner(Builder $builder) :Builder
     {
         return $builder->where('id', '!=', auth()->id());
     }
