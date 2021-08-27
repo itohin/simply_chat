@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+
+  php-fpm:
+    build: docker
+    container_name: 'php_unicom'
+    ports:
+      - 9090:9090
+    volumes:
+      - ./:/app
+    working_dir: /app
+
+  nginx:
+    image: nginx
+    container_name: 'nginx_unicom'
+    working_dir: /app
+    ports:
+      - 7777:80
+    volumes:
+      - ./:/app
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+
+  postgres:
+      image: postgres:12
+      ports:
+        - 15433:${DB_PORT}
+      container_name: 'unicom_postgresql'
+      working_dir: /app
+      restart: always
+      environment:
+        POSTGRES_DB: ${DB_DATABASE}
+        POSTGRES_USER: ${DB_USERNAME}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+      volumes:
+        - dump:/app/dump
+        - postgresql_unicom:/var/lib/postgresql/data
+
+volumes:
+  dump:
+  postgresql_unicom:
+
