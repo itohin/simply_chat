@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="card mb-3" :class="border">
-            <div class="card-header d-flex justify-content-between" style="padding:0.25rem 1rem">
+            <div class="card-header d-flex justify-content-between" :class="text" style="padding:0.25rem 1rem">
                 <span>{{ name }}</span>
                 <span class="text-muted">{{ moment(message.created_at).format('DD.MM.YY HH:mm') }}</span>
             </div>
@@ -36,6 +36,11 @@
                 return this.isOwnerMessage ?
                     this.owner.name :
                     this.recipient.name
+            },
+            text() {
+                return this.isOwnerMessage ?
+                    'text-primary' :
+                    'text-secondary'
             },
             border() {
                 return this.isOwnerMessage ?
